@@ -1,3 +1,4 @@
-import 'package:gramola/Routes.dart';
+import 'package:flutter/material.dart';
+import 'package:gramola/components/app_component.dart';
 
-void main() => new Routes();
+void main() => runApp(new AppComponent());
