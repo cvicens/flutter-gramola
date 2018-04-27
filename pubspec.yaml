@@ -16,7 +16,7 @@ dependencies:
   intl: ^0.15.6
 
   # FH
-  fh_sdk: ^0.6.4
+  fh_sdk: ^0.6.5
 
   # Redux
   flutter_flux:

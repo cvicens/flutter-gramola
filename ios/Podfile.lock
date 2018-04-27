@@ -10,12 +10,12 @@ PODS:
   - Reachability (3.2)
 
 DEPENDENCIES:
-  - fh_sdk (from `Pods/.symlinks/plugins/fh_sdk-0.6.4/ios`)
+  - fh_sdk (from `Pods/.symlinks/plugins/fh_sdk-0.6.5/ios`)
   - Flutter (from `Pods/.symlinks/flutter/ios`)
 
 EXTERNAL SOURCES:
   fh_sdk:
-    :path: Pods/.symlinks/plugins/fh_sdk-0.6.4/ios
+    :path: Pods/.symlinks/plugins/fh_sdk-0.6.5/ios
   Flutter:
     :path: Pods/.symlinks/flutter/ios
 

@@ -100,7 +100,7 @@ class AppComponentState extends State<AppComponent>
   Widget build(BuildContext context) {
     final app = new MaterialApp(
       title: 'Fluro',
-      theme: initStore.isFetching ? ThemeData.light() : ThemeData.dark(),
+      theme: initStore.isFetching ? ThemeData.dark() : ThemeData.light(),
       onGenerateRoute: Application.router.generator,
     );
     print("initial route = ${app.initialRoute}");
