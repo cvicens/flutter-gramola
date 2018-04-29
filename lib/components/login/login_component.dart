@@ -29,7 +29,7 @@ class LoginTextField extends TextFormField {
           //  borderSide: new BorderSide(color: TEXT_COLOR)
           //),
         ),
-        //style: TEXT_STYLE,
+        //  style: TEXT_STYLE,
         validator: validator,
         onSaved: onSaved,
         obscureText: obscureText
@@ -91,7 +91,7 @@ class _LoginComponentState extends State<LoginComponent>
         key: formKey,
         child: new Column(
           children: [
-            const SizedBox(height: 24.0),
+            const Expanded(child: const SizedBox()),
             new LoginTextField(
               iconData: Icons.person,
               labelText: 'User Name',
@@ -107,11 +107,12 @@ class _LoginComponentState extends State<LoginComponent>
               onSaved: (val) => _password = val,
               obscureText: true,
             ),
-            const SizedBox(height: 24.0),
+            const SizedBox(height: 32.0),
             new RaisedButton(
               onPressed: _submit,
               child: new Text('Login'),
             ),
+            const Expanded(child: const SizedBox()),
           ],
         ),
       ),
@@ -130,7 +131,7 @@ class _LoginComponentState extends State<LoginComponent>
         children: <Widget>[
           new Image.asset(BACKGROUND_PHOTO, fit: BoxFit.cover),
           new BackdropFilter(
-            filter: new ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+            filter: new ui.ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
             child: new Container(
               color: Colors.black.withOpacity(0.5),
               // TODO: child: _buildContent(),

@@ -7,7 +7,6 @@ import 'package:fh_sdk/fh_sdk.dart';
 
 import 'package:gramola/config/stores.dart';
 
-import 'package:gramola/model/event.dart';
 import 'package:gramola/components/events/events_row_component.dart';
 
 import 'package:gramola/config/theme.dart' as Theme;
@@ -43,6 +42,7 @@ class _EventsComponentState extends State<EventsComponent>
     eventsStore = listenToStore(eventStoreToken);
 
     _fetchEvents();
+    _getImagesUrl();
 
     //_events = eventsStore.events;
   }
@@ -61,6 +61,17 @@ class _EventsComponentState extends State<EventsComponent>
     } on PlatformException catch (e) {
       fetchEventsFailureAction(e.message);
       _showSnackbar('Authentication failed!');
+    }
+  }
+
+  void _getImagesUrl() async {
+    try {
+      fetchCloudUrlRequestAction('');
+      String result = await FhSdk.getCloudUrl();
+      fetchCloudUrlSuccessAction(result);
+    } on PlatformException catch (e) {
+      fetchCloudUrlFailureAction(e.message);
+      _showSnackbar('getCloudUrl failed!');
     }
   }
 
@@ -95,11 +106,11 @@ class _EventsComponentState extends State<EventsComponent>
         children: <Widget>[
           new Flexible(
             child: new Container(
-              color: Theme.GramolaColors.eventPageBackground,
+              //color: Theme.GramolaColors.eventPageBackground,
               child: new ListView.builder(
-                itemExtent: 160.0,
+                //itemExtent: 160.0,
                 itemCount: eventsStore.events.length,
-                itemBuilder: (_, index) => new EventRow(eventsStore.events[index]),
+                itemBuilder: (_, index) => new EventRow(eventsStore.imagesBaseUrl, eventsStore.events[index]),
               ),
             ),
           )

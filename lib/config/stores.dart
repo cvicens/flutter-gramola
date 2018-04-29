@@ -129,6 +129,8 @@ class EventsStore extends BaseStore {
   String _currentCountry = 'SPAIN';
   String _currentCity = 'MADRID';
 
+  String _imagesBaseUrl;
+
   dynamic _result;
 
   List<Event> _events = <Event>[];
@@ -136,6 +138,8 @@ class EventsStore extends BaseStore {
   
   String get currentCountry => _currentCountry;
   String get currentCity => _currentCity;
+
+  String get imagesBaseUrl => _imagesBaseUrl;
 
   dynamic get result => _result;
 
@@ -163,6 +167,21 @@ class EventsStore extends BaseStore {
     });
 
     triggerOnAction(fetchEventsFailureAction, (String errorMessage) {
+      _fetching = false;
+      _errorMessage = errorMessage;
+    });
+
+    triggerOnAction(fetchCloudUrlRequestAction, (String _) {
+        _fetching = true;
+        _error = false;
+    });
+
+    triggerOnAction(fetchCloudUrlSuccessAction, (String result) {
+        _fetching = false;
+        _imagesBaseUrl = result;
+    });
+
+    triggerOnAction(fetchCloudUrlFailureAction, (String errorMessage) {
       _fetching = false;
       _errorMessage = errorMessage;
     });
@@ -202,6 +221,10 @@ final Action<String>  authenticateFailureAction = new Action<String>();
 final Action<String>  fetchEventsRequestAction = new Action<String>();
 final Action<dynamic> fetchEventsSuccessAction = new Action<dynamic>();
 final Action<String>  fetchEventsFailureAction = new Action<String>();
+
+final Action<String> fetchCloudUrlRequestAction = new Action<String>();
+final Action<String> fetchCloudUrlSuccessAction = new Action<String>();
+final Action<String> fetchCloudUrlFailureAction = new Action<String>();
 
 final Action<Location> setLocationAction = new Action<Location>();
 final Action<Event> selectEvent = new Action<Event>();
