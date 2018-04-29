@@ -26,7 +26,7 @@ class EventRow extends StatelessWidget {
     final eventCard = new Container(
       margin: const EdgeInsets.only(left: 72.0, right: 24.0),
       decoration: new BoxDecoration(
-        color: Theme.Colors.eventCard,
+        color: Theme.GramolaColors.eventCard,
         shape: BoxShape.rectangle,
         borderRadius: new BorderRadius.circular(8.0),
         boxShadow: <BoxShadow>[
@@ -52,12 +52,12 @@ class EventRow extends StatelessWidget {
             new Row(
               children: <Widget>[
                 new Icon(Icons.location_on, size: 14.0,
-                  color: Theme.Colors.eventDate),
+                  color: Theme.GramolaColors.eventDate),
                 new Text(
                   event.artist, style: Theme.TextStyles.eventDate),
                 new Container(width: 24.0),
                 new Icon(Icons.flight_land, size: 14.0,
-                  color: Theme.Colors.eventDate),
+                  color: Theme.GramolaColors.eventDate),
                 new Text(
                   event.date, style: Theme.TextStyles.eventDate),
               ],

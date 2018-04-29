@@ -41,6 +41,7 @@ class InitStore extends BaseStore {
   InitStore() {
     triggerOnAction(initPluginRequestAction, (String _) {
         _fetching = true;
+        _error = false;
         _pluginInitialized = false;
     });
 
@@ -51,11 +52,13 @@ class InitStore extends BaseStore {
 
     triggerOnAction(initPluginFailureAction, (String errorMessage) {
       _fetching = false;
+      _error = true;
       _errorMessage = errorMessage;
     });
 
     triggerOnAction(initSdkRequestAction, (String _) {
         _fetching = true;
+        _error = false;
         _sdkInitialized = false;
     });
 
@@ -91,32 +94,77 @@ class InitStore extends BaseStore {
   }
 }
 
-class EventsStore extends Store {
-  bool _fetching = false;
-  bool _error = false;
+class LoginStore extends BaseStore {
+  bool _authenticated = false;
+  String _username;
+  dynamic _result;
+  
+  bool get isAuthenticated => _authenticated;
+  String get username => _username;
+  dynamic get result => _result;
 
-  String _errorMessage = '';
+  LoginStore() {
+    triggerOnAction(authenticateRequestAction, (String username) {
+        _fetching = true;
+        _error = false;
+        _authenticated = false;
+        _username = username;
+    });
 
+    triggerOnAction(authenticateSuccessAction, (dynamic result) {
+        _fetching = false;
+        _authenticated = true;
+        _result = result;
+    });
+
+    triggerOnAction(authenticateFailureAction, (String errorMessage) {
+      _fetching = false;
+      _error = true;
+      _errorMessage = errorMessage;
+    });
+  }
+}
+
+class EventsStore extends BaseStore {
   String _currentCountry = 'SPAIN';
   String _currentCity = 'MADRID';
 
-  final List<Event> _events = <Event>[];
+  dynamic _result;
+
+  List<Event> _events = <Event>[];
   Event _currentEvent;
   
-  bool get isFetching => _fetching;
-  bool get isError => _error;
-
-  String get errorMessage => _errorMessage;
-
   String get currentCountry => _currentCountry;
   String get currentCity => _currentCity;
+
+  dynamic get result => _result;
 
   List<Event> get events => new List<Event>.unmodifiable(_events);
   Event get currentEvent => _currentEvent;
 
   EventsStore() {
-    triggerOnAction(fetchEventsAction, (Null _) {
-      
+    triggerOnAction(fetchEventsRequestAction, (String _) {
+        _fetching = true;
+        _error = false;
+    });
+
+    triggerOnAction(fetchEventsSuccessAction, (dynamic result) {
+        _fetching = false;
+        if (result is List) {
+          _result = result;
+          _events = List<Event>();
+          _result.forEach((element) {
+            _events.add(new Event(artist: element['artist'], date: element['date'], 
+              description: element['description'], id: element['id'], 
+              image: element['image'], location:  element['location'], 
+              name:  element['name']));
+          });
+        }
+    });
+
+    triggerOnAction(fetchEventsFailureAction, (String errorMessage) {
+      _fetching = false;
+      _errorMessage = errorMessage;
     });
 
     triggerOnAction(setLocationAction, (Location location) {
@@ -146,6 +194,14 @@ final Action<String> initSdkFailureAction = new Action<String>();
 
 final Action<dynamic> pushNotificationReceivedAction = new Action<dynamic>();
 
-final Action<Null> fetchEventsAction = new Action<Null>();
+final Action<String>  authenticateRequestAction = new Action<String>();
+final Action<dynamic> authenticateSuccessAction = new Action<dynamic>();
+final Action<String>  authenticateFailureAction = new Action<String>();
+
+
+final Action<String>  fetchEventsRequestAction = new Action<String>();
+final Action<dynamic> fetchEventsSuccessAction = new Action<dynamic>();
+final Action<String>  fetchEventsFailureAction = new Action<String>();
+
 final Action<Location> setLocationAction = new Action<Location>();
 final Action<Event> selectEvent = new Action<Event>();

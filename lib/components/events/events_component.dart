@@ -1,4 +1,12 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+
+import 'package:flutter_flux/flutter_flux.dart';
+
+import 'package:fh_sdk/fh_sdk.dart';
+
+import 'package:gramola/config/stores.dart';
+
 import 'package:gramola/model/event.dart';
 import 'package:gramola/components/events/events_row_component.dart';
 
@@ -17,51 +25,86 @@ class EventsComponent extends StatefulWidget {
   _EventsComponentState createState() => new _EventsComponentState();
 }
 
-class _EventsComponentState extends State<EventsComponent> {
-  final GlobalKey<AnimatedListState> _listKey = new GlobalKey<AnimatedListState>();
-  List<Event> _events;
-  Event _selectedEvent;
+class _EventsComponentState extends State<EventsComponent> 
+  with StoreWatcherMixin<EventsComponent>{
 
- @override
+  final scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  final GlobalKey<AnimatedListState> _listKey = new GlobalKey<AnimatedListState>();
+
+  // Never write to these stores directly. Use Actions.
+  EventsStore eventsStore;
+
+  @override
   void initState() {
     super.initState();
-    //_events = new List<Event>()
-    _events = [
-    const Event(
-      id: "1",
-      name: "Nirvana Death Tour",
-      date: "21-04-2018",
-      location: "Milkyway Galaxy",
-      artist: "Nirvana",
-      description: "Lorem ipsum...",
-      image: "assets/img/nirvana.png",
-    ),
-    const Event(
-      id: "2",
-      name: "Aerosmith Zombies Tour",
-      date: "22-04-2018",
-      location: "Milkyway Galaxy",
-      artist: "Aerosmith",
-      description: "Lorem ipsum...",
-      image: "assets/img/aerosmith.png",
-    )];
+
+    // Demonstrates using a custom change handler.
+    eventsStore = listenToStore(eventStoreToken);
+
+    _fetchEvents();
+
+    //_events = eventsStore.events;
   }
 
-@override
+  void _fetchEvents() async {
+    try {
+      fetchEventsRequestAction('');
+       Map<String, dynamic> options = {
+        "path": "/events/" + eventsStore.currentCountry + "/" + eventsStore.currentCity + "/2018-04-27",
+        "method": "GET",
+        "contentType": "application/json",
+        "timeout": 25000 // timeout value specified in milliseconds. Default: 60000 (60s)
+      };
+      dynamic result = await FhSdk.cloud(options);
+      fetchEventsSuccessAction(result);
+    } on PlatformException catch (e) {
+      fetchEventsFailureAction(e.message);
+      _showSnackbar('Authentication failed!');
+    }
+  }
+
+  void _showSnackbar (String message) {
+    // This is just a demo, so no actual login here.
+    final snackbar = new SnackBar(
+      content: new Text(message),
+    );
+
+    scaffoldKey.currentState.showSnackBar(snackbar);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return new Column(
-      children: <Widget>[
-        new Flexible(
-          child: new Container(
-            color: Theme.Colors.eventPageBackground,
-            child: new ListView.builder(
-              itemExtent: 160.0,
-              itemCount: _events.length,
-              itemBuilder: (_, index) => new EventRow(_events[index]),
+    return new Scaffold(
+      key: scaffoldKey,
+      appBar: new AppBar(
+        title: new Text('List of events'),
+        leading: new IconButton(
+            tooltip: 'Previous choice',
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+             //Navigator.pop(scaffoldKey.currentContext);
+             Navigator.pushReplacementNamed(scaffoldKey.currentContext, '/');
+          },
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        toolbarOpacity: 0.5,
+      ),
+      body: new Column(
+        children: <Widget>[
+          new Flexible(
+            child: new Container(
+              color: Theme.GramolaColors.eventPageBackground,
+              child: new ListView.builder(
+                itemExtent: 160.0,
+                itemCount: eventsStore.events.length,
+                itemBuilder: (_, index) => new EventRow(eventsStore.events[index]),
+              ),
             ),
-          ),
-        )
-      ]
+          )
+        ]
+      )
     );
   }
 }

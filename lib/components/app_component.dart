@@ -8,6 +8,7 @@ import 'package:fh_sdk/fh_sdk.dart';
 import 'package:gramola/config/application.dart';
 import 'package:gramola/config/routes.dart';
 import 'package:gramola/config/stores.dart';
+import 'package:gramola/config/theme.dart';
 
 class AppComponent extends StatefulWidget {
 
@@ -19,7 +20,7 @@ class AppComponentState extends State<AppComponent>
             with StoreWatcherMixin<AppComponent> {
 
   // Never write to these stores directly. Use Actions.
-  EventsStore eventStore;
+  EventsStore eventsStore;
   InitStore initStore;
 
   AppComponentState() {
@@ -78,7 +79,7 @@ class AppComponentState extends State<AppComponent>
     super.initState();
 
     // Demonstrates using a custom change handler.
-    eventStore = listenToStore(eventStoreToken, handleEventStoreChanged);
+    eventsStore = listenToStore(eventStoreToken, handleEventStoreChanged);
 
     // Demonstrates using the default handler, which just calls setState().
     initStore = listenToStore(initStoreToken);
@@ -99,8 +100,9 @@ class AppComponentState extends State<AppComponent>
   @override
   Widget build(BuildContext context) {
     final app = new MaterialApp(
-      title: 'Fluro',
-      theme: initStore.isFetching ? ThemeData.dark() : ThemeData.light(),
+      title: 'Gramola',
+      //theme: initStore.isFetching ? ThemeData.dark() : ThemeData.light(),
+      theme: gramolaTheme,
       onGenerateRoute: Application.router.generator,
     );
     print("initial route = ${app.initialRoute}");

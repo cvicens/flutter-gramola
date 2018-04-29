@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Colors {
+final ThemeData gramolaTheme = new ThemeData(
+  brightness: Brightness.dark,
+  primaryColor: Colors.lightBlue[800],
+  accentColor:  Colors.cyan[600]
+);
 
-  const Colors();
+class GramolaColors {
 
+  const GramolaColors();
 
   static const Color appBarTitle = const Color(0xFFFFFFFF);
   static const Color appBarIconColor = const Color(0xFFFFFFFF);
@@ -33,32 +38,30 @@ class TextStyles {
   const TextStyles();
 
   static const TextStyle appBarTitle = const TextStyle(
-    color: Colors.appBarTitle,
+    color: GramolaColors.appBarTitle,
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w600,
     fontSize: 36.0
   );
 
   static const TextStyle eventTitle = const TextStyle(
-    color: Colors.eventTitle,
+    color: GramolaColors.eventTitle,
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w600,
     fontSize: 24.0
   );
 
   static const TextStyle eventLocation = const TextStyle(
-    color: Colors.eventLocation,
+    color: GramolaColors.eventLocation,
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w300,
     fontSize: 14.0
   );
 
   static const TextStyle eventDate = const TextStyle(
-    color: Colors.eventDate,
+    color: GramolaColors.eventDate,
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w300,
     fontSize: 12.0
   );
-
-
 }
