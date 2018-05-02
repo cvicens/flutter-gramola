@@ -99,6 +99,7 @@ class AppComponentState extends State<AppComponent>
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     final app = new MaterialApp(
       title: 'Gramola',
       //theme: initStore.isFetching ? ThemeData.dark() : ThemeData.light(),

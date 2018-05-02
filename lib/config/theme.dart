@@ -4,7 +4,7 @@ final ThemeData gramolaTheme = new ThemeData(
   brightness: Brightness.dark,
   primaryColor: Colors.lightBlue[800],
   accentColor:  Colors.cyan[600],
-  backgroundColor: Colors.black
+  //backgroundColor: Colors.black
 );
 
 class GramolaColors {
