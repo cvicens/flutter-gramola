@@ -33,13 +33,14 @@ class _EventsComponentState extends State<EventsComponent>
 
   // Never write to these stores directly. Use Actions.
   EventsStore eventsStore;
+  LoginStore loginStore;
 
   @override
   void initState() {
     super.initState();
 
-    // Demonstrates using a custom change handler.
     eventsStore = listenToStore(eventStoreToken);
+    loginStore = listenToStore(loginStoreToken);
 
     _fetchEvents();
     _getImagesUrl();
@@ -94,13 +95,13 @@ class _EventsComponentState extends State<EventsComponent>
             tooltip: 'Previous choice',
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-             //Navigator.pop(scaffoldKey.currentContext);
-             Navigator.pushReplacementNamed(scaffoldKey.currentContext, '/');
+             Navigator.pop(scaffoldKey.currentContext);
+             //Navigator.pushReplacementNamed(scaffoldKey.currentContext, '/');
           },
         ),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
-        toolbarOpacity: 0.5,
+        //backgroundColor: Colors.transparent,
+        //toolbarOpacity: 0.5,
       ),
       body: new Column(
         children: <Widget>[
@@ -110,7 +111,7 @@ class _EventsComponentState extends State<EventsComponent>
               child: new ListView.builder(
                 //itemExtent: 160.0,
                 itemCount: eventsStore.events.length,
-                itemBuilder: (_, index) => new EventRow(eventsStore.imagesBaseUrl, eventsStore.events[index]),
+                itemBuilder: (_, index) => new EventRow(eventsStore.imagesBaseUrl, eventsStore.events[index], loginStore.username),
               ),
             ),
           )

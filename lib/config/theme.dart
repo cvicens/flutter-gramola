@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 final ThemeData gramolaTheme = new ThemeData(
   brightness: Brightness.dark,
-  primaryColor: Colors.lightBlue[800],
-  accentColor:  Colors.cyan[600],
+  primaryColor: Colors.purple[700],
+  accentColor:  Colors.purple[300],
   //backgroundColor: Colors.black
+  buttonColor: Colors.purple[300],
 );
 
 class GramolaColors {
@@ -22,8 +23,9 @@ class GramolaColors {
   //static const Color eventListBackground = const Color(0xFF3E3963);
   static const Color eventPageBackground = const Color(0xFF736AB7);
   static const Color eventTitle = const Color(0xFFFFFFFF);
-  static const Color eventLocation = const Color(0x66FFFFFF);
-  static const Color eventDate = const Color(0x66FFFFFF);
+  static const Color eventArtist = const Color(0xFFFFFFFF);
+  static const Color eventLocation = const Color(0xFFFFFFFF);
+  static const Color eventDate = const Color(0xFFFFFFFF);
 
 }
 
@@ -38,31 +40,33 @@ class TextStyles {
 
   const TextStyles();
 
-  static const TextStyle appBarTitle = const TextStyle(
-    color: GramolaColors.appBarTitle,
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.w600,
-    fontSize: 36.0
-  );
-
   static const TextStyle eventTitle = const TextStyle(
     color: GramolaColors.eventTitle,
-    fontFamily: 'Poppins',
+    fontFamily: 'Cataclysme',
     fontWeight: FontWeight.w600,
-    fontSize: 24.0
+    fontSize: 32.0
+  );
+
+  static const TextStyle eventArtist = const TextStyle(
+    color: GramolaColors.eventArtist,
+    fontFamily: 'FrederickatheGreat',
+    fontWeight: FontWeight.bold,
+    fontSize: 28.0
   );
 
   static const TextStyle eventLocation = const TextStyle(
     color: GramolaColors.eventLocation,
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.w300,
-    fontSize: 14.0
+    fontFamily: 'FrederickatheGreat',
+    fontWeight: FontWeight.normal,
+    fontSize: 18.0
   );
 
   static const TextStyle eventDate = const TextStyle(
     color: GramolaColors.eventDate,
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.w300,
-    fontSize: 12.0
+    fontFamily: 'FrederickatheGreat',
+    fontWeight: FontWeight.normal,
+    fontSize: 18.0
   );
+
 }
+

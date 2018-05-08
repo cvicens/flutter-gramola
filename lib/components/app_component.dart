@@ -20,8 +20,8 @@ class AppComponentState extends State<AppComponent>
             with StoreWatcherMixin<AppComponent> {
 
   // Never write to these stores directly. Use Actions.
-  EventsStore eventsStore;
   InitStore initStore;
+  EventsStore eventsStore;
 
   AppComponentState() {
     final router = new Router();
@@ -92,7 +92,7 @@ class AppComponentState extends State<AppComponent>
     EventsStore eventStore = store;
     if (eventStore.currentEvent == null) {
         // Cleaning
-        print('>>>> Cleaning... text controllers...');
+        print('>>>> Sample store-changed handler');
     }
     setState(() {});
   }
@@ -101,7 +101,7 @@ class AppComponentState extends State<AppComponent>
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     final app = new MaterialApp(
-      title: 'Gramola',
+      title: 'Gramola!',
       //theme: initStore.isFetching ? ThemeData.dark() : ThemeData.light(),
       theme: gramolaTheme,
       onGenerateRoute: Application.router.generator,

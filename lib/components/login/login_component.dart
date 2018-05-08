@@ -24,12 +24,7 @@ class LoginTextField extends TextFormField {
         decoration: new InputDecoration(
           icon: new Icon(iconData),
           labelText: labelText,
-          //labelStyle: TEXT_STYLE,
-          //border: new UnderlineInputBorder(
-          //  borderSide: new BorderSide(color: TEXT_COLOR)
-          //),
         ),
-        //  style: TEXT_STYLE,
         validator: validator,
         onSaved: onSaved,
         obscureText: obscureText
@@ -41,17 +36,26 @@ class LoginComponent extends StatefulWidget {
   _LoginComponentState createState() => new _LoginComponentState();
 }
 
-class _LoginComponentState extends State<LoginComponent> 
+class _LoginComponentState extends State<LoginComponent>
   with StoreWatcherMixin<LoginComponent>{
 
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   final formKey = new GlobalKey<FormState>();
 
   // Never write to these stores directly. Use Actions.
+  InitStore initStore;
   LoginStore loginStore;
 
   String _email;
   String _password;
+
+  @override
+  void initState() {
+    super.initState();
+
+    loginStore = listenToStore(loginStoreToken);
+    initStore = listenToStore(initStoreToken);
+  }
 
   void _submit() {
     final form = formKey.currentState;
@@ -68,7 +72,7 @@ class _LoginComponentState extends State<LoginComponent>
       authenticateRequestAction(_email);
       dynamic result = await FhSdk.auth('flutter', _email, _password);
       authenticateSuccessAction(result);
-      Navigator.pushReplacementNamed(scaffoldKey.currentContext, '/events/SPAIN/MADRID');
+      Navigator.pushNamed(scaffoldKey.currentContext, '/events?country=SPAIN&city=MADRID');
     } on PlatformException catch (e) {
       authenticateFailureAction(e.message);
       _showSnackbar('Authentication failed!');
@@ -76,11 +80,9 @@ class _LoginComponentState extends State<LoginComponent>
   }
 
   void _showSnackbar (String message) {
-    // This is just a demo, so no actual login here.
     final snackbar = new SnackBar(
       content: new Text(message),
     );
-
     scaffoldKey.currentState.showSnackBar(snackbar);
   }
 
@@ -109,8 +111,8 @@ class _LoginComponentState extends State<LoginComponent>
             ),
             const SizedBox(height: 32.0),
             new RaisedButton(
-              onPressed: _submit,
-              child: new Text('Login'),
+              child: new Text(initStore.isSdkInitialized ? 'Login' : 'Init in progress...'),
+              onPressed: initStore.isSdkInitialized ? _submit : null
             ),
             const Expanded(child: const SizedBox()),
           ],
@@ -123,9 +125,6 @@ class _LoginComponentState extends State<LoginComponent>
   Widget build(BuildContext context) {
     return new Scaffold(
       key: scaffoldKey,
-      //appBar: new AppBar(
-      //  title: new Text('Validating forms'),
-      //),
       body: new Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -134,7 +133,6 @@ class _LoginComponentState extends State<LoginComponent>
             filter: new ui.ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
             child: new Container(
               color: Colors.black.withOpacity(0.5),
-              // TODO: child: _buildContent(),
               child: _buildLoginForm(context)
             ),
           ),

@@ -1,5 +1,8 @@
 name: gramola
 description: A new Flutter project.
+version: 0.0.1
+author: Carlos Vicens <carlos.vicens.alonso@gmail.com>
+homepage: https://github.com/cvicens/flutter-gramola
 
 dependencies:
   flutter:
@@ -17,6 +20,12 @@ dependencies:
 
   # FH
   fh_sdk: ^0.6.5
+
+  # Gramola timeline 
+  gramola_timeline:
+    git:
+      url: https://github.com/cvicens/flutter-gramola-timeline
+      ref: v0.0.6
 
   # Redux
   flutter_flux:
@@ -68,3 +77,13 @@ flutter:
   #
   # For details regarding fonts from package dependencies, 
   # see https://flutter.io/custom-fonts/#from-packages
+  fonts:
+    - family: Cataclysme
+      fonts:
+        - asset: fonts/Cataclysme-Regular.ttf
+    - family: CFAssholePoliticians
+      fonts:
+        - asset: fonts/Cataclysme-Regular.ttf
+    - family: FrederickatheGreat
+      fonts:
+        - asset: fonts/FrederickatheGreat-Regular.ttf

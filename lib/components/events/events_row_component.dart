@@ -1,30 +1,18 @@
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'package:gramola/config/theme.dart' as Theme;
+
+import 'package:gramola/config/theme.dart';
 import 'package:gramola/model/event.dart';
 
 class EventRow extends StatelessWidget {
   final String _imagesBaseUrl;
   final Event _event;
+  final String _userId;
 
-  EventRow(this._imagesBaseUrl, this._event);
+  EventRow(this._imagesBaseUrl, this._event, this._userId);
 
   Widget _buildCardContent(BuildContext context) {
-    return new Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          new ListTile(
-            //leading: const Icon(Icons.event_available),
-            title: new Text(_event.name),
-            subtitle: new Text(_event.artist),
-          ),
-          
-        ]
-      );
-  }
-
-  Widget _buildCardContent2(BuildContext context) {
     return new Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -32,12 +20,12 @@ class EventRow extends StatelessWidget {
           const Expanded(child: const SizedBox()),
           new Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[new Text(_event.name)]
+            children: <Widget>[new Text(_event.name, style: TextStyles.eventTitle)]
           ),
           const Expanded(child: const SizedBox()),
           new Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[new Text(_event.artist)]
+            children: <Widget>[new Text(_event.artist, style: TextStyles.eventArtist)]
           ),
           const Expanded(child: const SizedBox()),
           new Row(
@@ -45,9 +33,9 @@ class EventRow extends StatelessWidget {
 
             children: <Widget>[
               const Expanded(child: const SizedBox()),
-              new Column(children: <Widget>[new Text(_event.date)]),
+              new Column(children: <Widget>[new Text(_event.date, style: TextStyles.eventDate)]),
               const Expanded(child: const SizedBox()),
-              new Column(children: <Widget>[new Text(_event.location)]),
+              new Column(children: <Widget>[new Text(_event.location, style: TextStyles.eventLocation)]),
               const Expanded(child: const SizedBox())
             ]
           ),
@@ -58,30 +46,33 @@ class EventRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Card(
-      child: new SizedBox(
-        height: 160.0,
-        child: new Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            new Image.network(this._imagesBaseUrl + '/' + this._event.image, fit: BoxFit.cover),
-            new BackdropFilter(
-              filter: new ui.ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
-              child: new Container(
-                color: Colors.black.withOpacity(0.2),
-                // TODO: child: _buildContent(),
-                //child: _buildCardContent(context)
+    return new GestureDetector(
+      onTap: () => _navigateToTimeline(context, this._event.id, this._userId), 
+      child: new Card(
+        child: new SizedBox(
+          height: 160.0,
+          child: new Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              new Image.network(this._imagesBaseUrl + '/' + this._event.image, fit: BoxFit.cover),
+              new BackdropFilter(
+                filter: new ui.ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
+                child: new Container(
+                  color: Colors.black.withOpacity(0.5),
+                ),
               ),
-            ),
-            _buildCardContent2(context)
-          ]
+              _buildCardContent(context)
+            ]
+          )
         )
       )
     );
   }
 
-  _navigateTo(context, String id) {
-    print ("TODO Event Detail: $id");
+  _navigateToTimeline(context, String eventId, String userId) {
+    print ("About to navigate to /timeline?eventId=$eventId&userId=$userId");
     //Navigator.pushReplacementNamed(context, '/event/$id');
+    //Navigator.pushReplacementNamed(context, '/timeline?eventId=$eventId&userId=$userId');
+    Navigator.pushNamed(context, '/timeline?eventId=$eventId&userId=$userId');
   }
 }

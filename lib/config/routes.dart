@@ -8,7 +8,8 @@ class Routes {
       print("ROUTE WAS NOT FOUND !!!");
     });
     router.define("/", handler: loginHandler);
-    router.define("/events/:country/:city", handler: eventsRouteHandler);
+    router.define("/events", handler: eventsRouteHandler);
+    router.define("/timeline", handler: timelineRouteHandler);
     //router.define("/event/:event", handler: eventsRouteHandler);
   }
 }

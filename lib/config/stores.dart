@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_flux/flutter_flux.dart';
-import 'package:fh_sdk/fh_sdk.dart';
 
 import 'package:gramola/model/event.dart';
 
@@ -23,8 +22,7 @@ class BaseStore extends Store {
 
   String get errorMessage => _errorMessage;
 
-  BaseStore() {
-  }
+  BaseStore();
 }
 
 class InitStore extends BaseStore {
@@ -200,6 +198,7 @@ class EventsStore extends BaseStore {
 }
 
 final StoreToken eventStoreToken = new StoreToken(new EventsStore());
+final StoreToken loginStoreToken = new StoreToken(new LoginStore());
 final StoreToken initStoreToken = new StoreToken(new InitStore());
 
 
