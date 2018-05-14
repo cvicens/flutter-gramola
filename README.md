@@ -25,10 +25,6 @@ This App uses data it gets invoking a REST API 'events', see diagram below.
 
 ![The Gramola App](https://raw.githubusercontent.com/cvicens/flutter-gramola/master/images/flutter-app-before.png)
 
-Here the app at work.
-
-![]()
-
 Relevant elements, I'm using Fluro for routing and Flutter Flux as a redux library.
 
 If you have a look to the code you'll find a pretty straightforward structure I spent some time looking out there for a nice structure and finally I took Sergi's [planets](https://github.com/sergiandreplace/planets-flutter) app as a reference, I also scavenged some nice pieces of code as well ;-)
@@ -190,6 +186,10 @@ var timelineRouteHandler = new Handler(handlerFunc: (BuildContext context, Map<S
 
 So, in the end I have defined a navigation rule to navigate to the component defined in a module which has it's own lifecycle, navigation, assets, widgets, etc.
 
+Let me show you an image that illustrates a possible lifecycle of our app including yet another feature 'ticketing', just to give you a view of the whole repos scenario.
+
+![Whole lifecycle view of a modular flutter app](https://raw.githubusercontent.com/cvicens/flutter-gramola/master/images/modular-flutter-b.png)
+
 Let's see the result, note that colors are different because the theme is different, so our module is Theme aware, not a bad thing to do by the way.
 
 ![Gramola App complete](https://raw.githubusercontent.com/cvicens/flutter-gramola/master/images/gramola-app-1500px.png)
@@ -202,4 +202,4 @@ Let me go back to my previous love, RN, remember? Well, with React Native by usi
  
 Having said that and spent quality time with both Flutter and React Native it's difficult to rule out one of them, in fact I think both are really good multi-platform frameworks that can help you create applications in a modular fashion while having a common (mostly) code base.
 
-I hope these ideas will hopefully help you creating mobile apps that can keep the pase of innovation of your micro-services based back-end ;-)
+I hope these ideas will hopefully help you creating mobile apps that can keep the pace of innovation of your micro-services based back-end ;-)
