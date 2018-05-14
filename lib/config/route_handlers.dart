@@ -20,7 +20,6 @@ var eventsRouteHandler = new Handler(handlerFunc: (BuildContext context, Map<Str
 var timelineRouteHandler = new Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   String eventId = params["eventId"]?.first;
   String userId = params["userId"]?.first;
-  //return new EventsComponent(country: country, city: city);
   return new EventTimelineComponent(
     new TimelineConfiguration(
       eventId: eventId,
@@ -29,8 +28,3 @@ var timelineRouteHandler = new Handler(handlerFunc: (BuildContext context, Map<S
     )
   );
 });
-
-//var eventDetailRouteHandler = new Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-//  String eventId = params["eventId"]?.first;
-//  return new EventDetailComponent(eventId: eventId);
-//});

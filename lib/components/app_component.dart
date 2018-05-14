@@ -102,7 +102,6 @@ class AppComponentState extends State<AppComponent>
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     final app = new MaterialApp(
       title: 'Gramola!',
-      //theme: initStore.isFetching ? ThemeData.dark() : ThemeData.light(),
       theme: gramolaTheme,
       onGenerateRoute: Application.router.generator,
     );

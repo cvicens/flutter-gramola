@@ -82,10 +82,8 @@ class InitStore extends BaseStore {
         print ('push_message_received ' + call.toString());
         if (call.arguments != null && call.arguments['userInfo'] != null) {
           var userInfo = call.arguments['userInfo'];
-          //showSnackBarMessage(userInfo['aps']['alert']['body']);
           print(userInfo['aps']['alert']['body']);
         } else {
-          //showSnackBarMessage(call.toString());
           print(call.toString());
         }
       }

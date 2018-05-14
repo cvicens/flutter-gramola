@@ -71,8 +71,6 @@ class EventRow extends StatelessWidget {
 
   _navigateToTimeline(context, String eventId, String userId) {
     print ("About to navigate to /timeline?eventId=$eventId&userId=$userId");
-    //Navigator.pushReplacementNamed(context, '/event/$id');
-    //Navigator.pushReplacementNamed(context, '/timeline?eventId=$eventId&userId=$userId');
     Navigator.pushNamed(context, '/timeline?eventId=$eventId&userId=$userId');
   }
 }

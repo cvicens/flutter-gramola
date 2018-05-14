@@ -4,7 +4,6 @@ final ThemeData gramolaTheme = new ThemeData(
   brightness: Brightness.dark,
   primaryColor: Colors.purple[700],
   accentColor:  Colors.purple[300],
-  //backgroundColor: Colors.black
   buttonColor: Colors.purple[300],
 );
 
@@ -18,9 +17,7 @@ class GramolaColors {
   static const Color appBarGradientStart = const Color(0xFF3383FC);
   static const Color appBarGradientEnd = const Color(0xFF00C6FF);
 
-  //static const Color eventCard = const Color(0xFF434273);
   static const Color eventCard = const Color(0xFF8685E5);
-  //static const Color eventListBackground = const Color(0xFF3E3963);
   static const Color eventPageBackground = const Color(0xFF736AB7);
   static const Color eventTitle = const Color(0xFFFFFFFF);
   static const Color eventArtist = const Color(0xFFFFFFFF);

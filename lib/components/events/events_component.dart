@@ -9,8 +9,6 @@ import 'package:gramola/config/stores.dart';
 
 import 'package:gramola/components/events/events_row_component.dart';
 
-import 'package:gramola/config/theme.dart' as Theme;
-
 class EventsComponent extends StatefulWidget {
 
   EventsComponent({String country, String city})
@@ -44,15 +42,13 @@ class _EventsComponentState extends State<EventsComponent>
 
     _fetchEvents();
     _getImagesUrl();
-
-    //_events = eventsStore.events;
   }
 
   void _fetchEvents() async {
     try {
       fetchEventsRequestAction('');
        Map<String, dynamic> options = {
-        "path": "/events/" + eventsStore.currentCountry + "/" + eventsStore.currentCity + "/2018-04-27",
+        "path": "/events/" + eventsStore.currentCountry + "/" + eventsStore.currentCity,
         "method": "GET",
         "contentType": "application/json",
         "timeout": 25000 // timeout value specified in milliseconds. Default: 60000 (60s)
@@ -77,7 +73,6 @@ class _EventsComponentState extends State<EventsComponent>
   }
 
   void _showSnackbar (String message) {
-    // This is just a demo, so no actual login here.
     final snackbar = new SnackBar(
       content: new Text(message),
     );
@@ -96,20 +91,15 @@ class _EventsComponentState extends State<EventsComponent>
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
              Navigator.pop(scaffoldKey.currentContext);
-             //Navigator.pushReplacementNamed(scaffoldKey.currentContext, '/');
           },
         ),
         centerTitle: true,
-        //backgroundColor: Colors.transparent,
-        //toolbarOpacity: 0.5,
       ),
       body: new Column(
         children: <Widget>[
           new Flexible(
             child: new Container(
-              //color: Theme.GramolaColors.eventPageBackground,
               child: new ListView.builder(
-                //itemExtent: 160.0,
                 itemCount: eventsStore.events.length,
                 itemBuilder: (_, index) => new EventRow(eventsStore.imagesBaseUrl, eventsStore.events[index], loginStore.username),
               ),
