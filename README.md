@@ -196,7 +196,10 @@ Let's see the result, note that colors are different because the theme is differ
 
 # Before the curtain falls
 [Voiceover]
+
 Let me go back to my previous love, RN, remember? Well, with React Native by using 'npm' modules and 'Code Push' it's possible to inject new modules without deploying a new binary (unless new native libraries are involved), basically it is possible to provide a tradeoff solution to the second part of the 'breaking the monolith' deal.
  For a thorough insight into mini-apps it could be worth to have a look to [this article](https://medium.com/@prashantramnyc/microservices-architecture-for-mobile-application-development-part-i-20b4f4089a24), there Prashant Ram speaks explains the Walmart Labs approach to breaking the mobile app monolith by using React Native and an OTA server to push new mini-apps to a core app.
  
 Having said that and spent quality time with both Flutter and React Native it's difficult to rule out one of them, in fact I think both are really good multi-platform frameworks that can help you create applications in a modular fashion while having a common (mostly) code base.
+
+I hope these ideas will hopefully help you creating mobile apps that can keep the pase of innovation of your micro-services based back-end ;-)
